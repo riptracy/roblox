@@ -33,7 +33,7 @@ local tableinsert = table.insert
 getgenv().Aiming = {
     Enabled = true,
 
-    ShowFOV = false,
+    ShowFOV = true,
     FOV = 30,
     FOVSides = 12,
     FOVColour = Color3fromRGB(231, 84, 128),
@@ -70,12 +70,10 @@ circle.Filled = false
 Aiming.FOVCircle = circle
 
 function Aiming.UpdateFOV()
-    -- // Make sure the circle exists
     if not (circle) then
         return
     end
 
-    -- // Set Circle Properties
     circle.Visible = Aiming.ShowFOV
     circle.Radius = (Aiming.FOV * 3)
     circle.Position = Vector2new(Mouse.X, Mouse.Y + GetGuiInset(GuiService).Y)
@@ -86,7 +84,6 @@ function Aiming.UpdateFOV()
 end
 
 local CalcChance = function(percentage)
-    -- // Floor the percentage
     percentage = mathfloor(percentage)
 
     local chance = mathfloor(Randomnew().NextNumber(Randomnew(), 0, 1) * 100) / 100
@@ -122,7 +119,6 @@ function Aiming.IgnorePlayer(Player)
     local IgnoredPlayers = Ignored.Players
 
     for _, IgnoredPlayer in ipairs(IgnoredPlayers) do
-        -- // Make sure player matches
         if (IgnoredPlayer == Player) then
             return false
         end
@@ -137,9 +133,7 @@ function Aiming.UnIgnorePlayer(Player)
     local IgnoredPlayers = Ignored.Players
 
     for i, IgnoredPlayer in ipairs(IgnoredPlayers) do
-        -- // Make sure player matches
         if (IgnoredPlayer == Player) then
-            -- // Remove from ignored
             tableremove(IgnoredPlayers, i)
             return true
         end
